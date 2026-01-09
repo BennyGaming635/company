@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - Benco Company{% endblock %}
+
+{% block content %}
+<div class="welcome-screen">
+    <div class="welcome-card">
+        <h1>Welcome to BENCO</h1>
+        <h2>🌐 Biggest Server Hosting Platform</h2>
+        <p class="welcome-description">
+            Join the elite team managing the world's largest server infrastructure!
+            Handle support tickets, monitor servers, complete daily tasks, and rise through the ranks.
+        </p>
+        
+        <div class="features-grid">
+            <div class="feature">
+                <span class="feature-icon">🎫</span>
+                <h3>Support Tickets</h3>
+                <p>Resolve customer issues</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🖥️</span>
+                <h3>Server Monitoring</h3>
+                <p>Keep systems running</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">✅</span>
+                <h3>Daily Tasks</h3>
+                <p>Complete assignments</p>
+            </div>
+            <div class="feature">
+                <span class="feature-icon">🏆</span>
+                <h3>Performance Tracking</h3>
+                <p>Climb the leaderboard</p>
+            </div>
+        </div>
+
+        <form method="POST" action="{{ url_for('start_game') }}" class="start-form">
+            <div class="form-group">
+                <label for="employee_name">Enter Your Name:</label>
+                <input type="text" id="employee_name" name="employee_name" 
+                       placeholder="Employee Name" maxlength="50" required>
+            </div>
+            <button type="submit" class="btn btn-primary btn-large">Start Your Shift</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Work Tasks - Benco Company{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📋 Daily Work Assignments</h1>
+    <p>Complete tasks to earn performance points - Day {{ current_day }}</p>
+</div>
+
+<div class="tasks-container">
+    {% if tasks %}
+        {% for task in tasks %}
+        <div class="task-card task-{{ task.type }}">
+            <div class="task-header">
+                <h3>{{ task.task }}</h3>
+                <span class="points-badge">+{{ task.points }} pts</span>
+            </div>
+            <div class="task-body">
+                <p class="task-type">Type: <strong>{{ task.type|title }}</strong></p>
+                <form method="POST" action="{{ url_for('complete_task', task_id=task.id) }}">
+                    <button type="submit" class="btn btn-success">Complete Task</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>🎉 All daily tasks completed! Excellent work!</p>
+            <p>Come back tomorrow for new assignments.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    {% endif %}
+</div>
+
+<div class="task-info">
+    <h3>Task Categories</h3>
+    <ul class="task-categories">
+        <li><strong>Support:</strong> Customer assistance tasks</li>
+        <li><strong>Monitoring:</strong> System surveillance duties</li>
+        <li><strong>Maintenance:</strong> System upkeep and updates</li>
+        <li><strong>Development:</strong> Technical improvements</li>
+        <li><strong>Documentation:</strong> Record keeping and guides</li>
+    </ul>
+</div>
+{% endblock %}

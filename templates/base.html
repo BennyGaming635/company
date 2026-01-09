@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Benco Company{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>🏢 BENCO</h1>
+                <p class="tagline">Biggest Server Hosting Platform</p>
+            </div>
+            {% if session.get('initialized') %}
+            <div class="nav-menu">
+                <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+                <a href="{{ url_for('tickets') }}" class="nav-link">Support Tickets</a>
+                <a href="{{ url_for('servers') }}" class="nav-link">Server Monitor</a>
+                <a href="{{ url_for('tasks') }}" class="nav-link">Tasks</a>
+                <a href="{{ url_for('scoreboard') }}" class="nav-link">Scoreboard</a>
+            </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    <div class="container">
+        <div id="event-notification" class="event-notification hidden"></div>
+        {% block content %}{% endblock %}
+    </div>
+
+    {% if session.get('initialized') %}
+    <script src="{{ url_for('static', filename='js/events.js') }}"></script>
+    {% endif %}
+    {% block extra_js %}{% endblock %}
+</body>
+</html>
