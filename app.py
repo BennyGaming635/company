@@ -17,6 +17,23 @@ SUPPORT_TICKETS = [
     {'id': 5, 'title': 'SSL certificate expired', 'priority': 'Critical', 'description': 'Domain SSL certificate needs renewal'},
     {'id': 6, 'title': 'Bandwidth limit reached', 'priority': 'Medium', 'description': 'Customer exceeded monthly bandwidth limit'},
     {'id': 7, 'title': 'FTP access denied', 'priority': 'Low', 'description': 'Unable to connect via FTP credentials'},
+    {'id': 8, 'title': 'Website hacked', 'priority': 'Critical', 'description': 'Customer website showing malicious content'},
+    {'id': 9, 'title': 'Backup restore request', 'priority': 'High', 'description': 'Customer needs backup from 2 days ago restored'},
+    {'id': 10, 'title': 'DNS not propagating', 'priority': 'Medium', 'description': 'Domain DNS changes not taking effect'},
+    {'id': 11, 'title': 'WordPress white screen', 'priority': 'High', 'description': 'Customer WordPress site showing blank page'},
+    {'id': 12, 'title': 'Disk space full', 'priority': 'High', 'description': 'Account reached 100% disk usage'},
+    {'id': 13, 'title': 'PHP version upgrade', 'priority': 'Low', 'description': 'Customer wants to upgrade from PHP 7.4 to 8.1'},
+    {'id': 14, 'title': 'Email not sending', 'priority': 'Medium', 'description': 'SMTP server rejecting outgoing emails'},
+    {'id': 15, 'title': '404 errors on website', 'priority': 'Medium', 'description': 'Multiple pages returning 404 errors'},
+    {'id': 16, 'title': 'Database too large', 'priority': 'Low', 'description': 'MySQL database exceeding allocated space'},
+    {'id': 17, 'title': 'Cron job not running', 'priority': 'Low', 'description': 'Scheduled task failed to execute'},
+    {'id': 18, 'title': 'File permissions error', 'priority': 'Medium', 'description': 'Cannot upload files due to permission issues'},
+    {'id': 19, 'title': 'Suspended account inquiry', 'priority': 'High', 'description': 'Customer asking why account was suspended'},
+    {'id': 20, 'title': 'Migration assistance', 'priority': 'Medium', 'description': 'Help needed migrating from another host'},
+    {'id': 21, 'title': 'Memory limit exceeded', 'priority': 'High', 'description': 'PHP scripts hitting memory limit'},
+    {'id': 22, 'title': 'Malware scan request', 'priority': 'Medium', 'description': 'Customer suspects malware on their site'},
+    {'id': 23, 'title': 'Subdomain not working', 'priority': 'Low', 'description': 'Newly created subdomain shows error'},
+    {'id': 24, 'title': 'Payment failed', 'priority': 'High', 'description': 'Auto-renewal payment declined'},
 ]
 
 WORK_TASKS = [
@@ -25,6 +42,19 @@ WORK_TASKS = [
     {'id': 3, 'task': 'Deploy security patches', 'points': 20, 'type': 'maintenance'},
     {'id': 4, 'task': 'Optimize database queries', 'points': 25, 'type': 'development'},
     {'id': 5, 'task': 'Update documentation', 'points': 8, 'type': 'documentation'},
+    {'id': 6, 'task': 'Perform security audit', 'points': 30, 'type': 'maintenance'},
+    {'id': 7, 'task': 'Set up automated backups', 'points': 20, 'type': 'maintenance'},
+    {'id': 8, 'task': 'Migrate customer to new server', 'points': 35, 'type': 'development'},
+    {'id': 9, 'task': 'Create knowledge base article', 'points': 12, 'type': 'documentation'},
+    {'id': 10, 'task': 'Investigate slow queries', 'points': 18, 'type': 'monitoring'},
+    {'id': 11, 'task': 'Update control panel', 'points': 22, 'type': 'maintenance'},
+    {'id': 12, 'task': 'Train new support staff', 'points': 15, 'type': 'support'},
+    {'id': 13, 'task': 'Fix broken API endpoints', 'points': 28, 'type': 'development'},
+    {'id': 14, 'task': 'Analyze server logs', 'points': 16, 'type': 'monitoring'},
+    {'id': 15, 'task': 'Configure firewall rules', 'points': 24, 'type': 'maintenance'},
+    {'id': 16, 'task': 'Implement caching system', 'points': 32, 'type': 'development'},
+    {'id': 17, 'task': 'Respond to customer surveys', 'points': 10, 'type': 'support'},
+    {'id': 18, 'task': 'Load test new infrastructure', 'points': 26, 'type': 'monitoring'},
 ]
 
 RANDOM_EVENTS = [
@@ -34,9 +64,44 @@ RANDOM_EVENTS = [
     {'type': 'info', 'message': 'Management: Team meeting scheduled for 3 PM', 'impact': 0},
     {'type': 'error', 'message': 'ALERT: DDoS attack detected on EU-West-2!', 'impact': -15},
     {'type': 'success', 'message': 'Bonus: Successfully resolved major incident!', 'impact': 20},
+    {'type': 'error', 'message': 'URGENT: Database server crashed in Asia-Pacific region!', 'impact': -20},
+    {'type': 'warning', 'message': 'Network latency spike detected across multiple regions', 'impact': -8},
+    {'type': 'success', 'message': 'Excellent work! Received positive feedback from VIP client', 'impact': 25},
+    {'type': 'info', 'message': 'Reminder: Security training session tomorrow', 'impact': 0},
+    {'type': 'error', 'message': 'Storage array failure on backup system!', 'impact': -12},
+    {'type': 'success', 'message': 'Achievement unlocked: 100% uptime for 30 days!', 'impact': 30},
+    {'type': 'warning', 'message': 'SSL certificates expiring in 7 days for 5 domains', 'impact': -3},
+    {'type': 'info', 'message': 'New company policy: All changes require approval', 'impact': 0},
+    {'type': 'error', 'message': 'Power outage in US-West datacenter!', 'impact': -18},
+    {'type': 'success', 'message': 'Record low response time achieved!', 'impact': 18},
+    {'type': 'warning', 'message': 'Unusual traffic pattern detected', 'impact': -6},
+    {'type': 'success', 'message': 'Customer upgraded to enterprise plan!', 'impact': 22},
+    {'type': 'error', 'message': 'RAID array degraded on storage server', 'impact': -14},
+    {'type': 'info', 'message': 'Maintenance window scheduled for tonight', 'impact': 0},
+    {'type': 'success', 'message': 'Performance optimization saved company $10K!', 'impact': 35},
+    {'type': 'warning', 'message': 'Bandwidth usage at 85% capacity', 'impact': -4},
+    {'type': 'error', 'message': 'Email server blacklisted! Immediate action required', 'impact': -16},
+    {'type': 'success', 'message': 'Zero security incidents this month!', 'impact': 28},
 ]
 
-SERVER_LOCATIONS = ['US-East-1', 'US-West-2', 'EU-West-1', 'EU-West-3', 'Asia-Pacific-1']
+SERVER_LOCATIONS = ['US-East-1', 'US-West-2', 'US-Central-1', 'EU-West-1', 'EU-West-3', 'EU-North-1', 'Asia-Pacific-1', 'Asia-Pacific-2', 'South-America-1']
+
+ACHIEVEMENTS = [
+    {'id': 1, 'name': 'First Step', 'description': 'Resolve your first ticket', 'requirement': 'tickets_resolved', 'threshold': 1, 'points': 10},
+    {'id': 2, 'name': 'Support Hero', 'description': 'Resolve 10 support tickets', 'requirement': 'tickets_resolved', 'threshold': 10, 'points': 50},
+    {'id': 3, 'name': 'Task Master', 'description': 'Complete 10 work tasks', 'requirement': 'tasks_completed', 'threshold': 10, 'points': 50},
+    {'id': 4, 'name': 'High Achiever', 'description': 'Reach 500 points', 'requirement': 'score', 'threshold': 500, 'points': 100},
+    {'id': 5, 'name': 'Veteran', 'description': 'Work for 7 days', 'requirement': 'current_day', 'threshold': 7, 'points': 75},
+    {'id': 6, 'name': 'Speed Demon', 'description': 'Resolve 25 tickets', 'requirement': 'tickets_resolved', 'threshold': 25, 'points': 100},
+    {'id': 7, 'name': 'Elite Status', 'description': 'Reach 1000 points', 'requirement': 'score', 'threshold': 1000, 'points': 200},
+]
+
+BONUS_CHALLENGES = [
+    {'id': 1, 'title': 'Rush Hour', 'description': 'Resolve 3 tickets in a row', 'points': 50, 'type': 'streak'},
+    {'id': 2, 'title': 'Perfect Day', 'description': 'Complete all daily tasks', 'points': 40, 'type': 'daily'},
+    {'id': 3, 'title': 'Critical Response', 'description': 'Resolve 2 critical tickets', 'points': 60, 'type': 'priority'},
+    {'id': 4, 'title': 'Efficiency Expert', 'description': 'Use detailed responses for 5 tickets', 'points': 45, 'type': 'quality'},
+]
 
 def initialize_session():
     """Initialize session data for new game"""
@@ -51,6 +116,49 @@ def initialize_session():
         session['active_tickets'] = random.sample(SUPPORT_TICKETS, 3)
         session['daily_tasks'] = random.sample(WORK_TASKS, 2)
         session['last_event_time'] = datetime.now().isoformat()
+        session['achievements_unlocked'] = []
+        session['ticket_streak'] = 0
+        session['detailed_responses'] = 0
+        session['critical_tickets_resolved'] = 0
+        session['active_bonus'] = random.choice(BONUS_CHALLENGES)
+
+def check_achievements():
+    """Check and unlock achievements"""
+    newly_unlocked = []
+    for achievement in ACHIEVEMENTS:
+        if achievement['id'] not in session.get('achievements_unlocked', []):
+            current_value = session.get(achievement['requirement'], 0)
+            if current_value >= achievement['threshold']:
+                session['achievements_unlocked'].append(achievement['id'])
+                session['score'] += achievement['points']
+                newly_unlocked.append(achievement)
+    return newly_unlocked
+
+def check_bonus_challenge():
+    """Check if active bonus challenge is completed"""
+    bonus = session.get('active_bonus', {})
+    if not bonus:
+        return None
+    
+    challenge_type = bonus.get('type')
+    completed = False
+    
+    if challenge_type == 'streak' and session.get('ticket_streak', 0) >= 3:
+        completed = True
+    elif challenge_type == 'daily' and len(session.get('daily_tasks', [])) == 0:
+        completed = True
+    elif challenge_type == 'priority' and session.get('critical_tickets_resolved', 0) >= 2:
+        completed = True
+    elif challenge_type == 'quality' and session.get('detailed_responses', 0) >= 5:
+        completed = True
+    
+    if completed:
+        session['score'] += bonus['points']
+        completed_bonus = bonus.copy()
+        session['active_bonus'] = random.choice(BONUS_CHALLENGES)
+        return completed_bonus
+    return None
+
 
 @app.route('/')
 def index():
@@ -82,7 +190,9 @@ def dashboard():
                          tickets_resolved=session['tickets_resolved'],
                          tasks_completed=session['tasks_completed'],
                          current_day=session['current_day'],
-                         performance_rating=round(performance_rating, 1))
+                         performance_rating=round(performance_rating, 1),
+                         active_bonus=session.get('active_bonus', {}),
+                         achievements_count=len(session.get('achievements_unlocked', [])))
 
 @app.route('/tickets')
 def tickets():
@@ -99,13 +209,31 @@ def resolve_ticket(ticket_id):
     
     response_quality = request.form.get('response', 'standard')
     
+    # Find the ticket to check priority
+    resolved_ticket = None
+    for t in session['active_tickets']:
+        if t['id'] == ticket_id:
+            resolved_ticket = t
+            break
+    
     # Remove ticket from active tickets
     session['active_tickets'] = [t for t in session['active_tickets'] if t['id'] != ticket_id]
     session['tickets_resolved'] += 1
     
+    # Track bonus challenge progress
+    session['ticket_streak'] = session.get('ticket_streak', 0) + 1
+    if response_quality == 'detailed':
+        session['detailed_responses'] = session.get('detailed_responses', 0) + 1
+    if resolved_ticket and resolved_ticket.get('priority') == 'Critical':
+        session['critical_tickets_resolved'] = session.get('critical_tickets_resolved', 0) + 1
+    
     # Award points based on response quality
     points = {'quick': 5, 'standard': 10, 'detailed': 15}.get(response_quality, 10)
     session['score'] += points
+    
+    # Check for achievements and bonus challenges
+    check_achievements()
+    check_bonus_challenge()
     
     # Add new ticket if needed
     active_ticket_ids = {t['id'] for t in session['active_tickets']}
@@ -169,6 +297,10 @@ def complete_task(task_id):
         session['tasks_completed'] += 1
         session['score'] += task['points']
         
+        # Check for achievements and bonus challenges
+        check_achievements()
+        check_bonus_challenge()
+        
         # Add new task if needed
         active_task_ids = {t['id'] for t in session['daily_tasks']}
         remaining_tasks = [t for t in WORK_TASKS if t['id'] not in active_task_ids]
@@ -196,7 +328,36 @@ def scoreboard():
                          tasks_completed=session['tasks_completed'],
                          current_day=session['current_day'],
                          efficiency=efficiency,
-                         rank=rank)
+                         rank=rank,
+                         achievements=ACHIEVEMENTS,
+                         unlocked_ids=session.get('achievements_unlocked', []))
+
+@app.route('/achievements')
+def achievements():
+    """View achievements page"""
+    initialize_session()
+    
+    unlocked_achievements = []
+    locked_achievements = []
+    
+    for achievement in ACHIEVEMENTS:
+        current_value = session.get(achievement['requirement'], 0)
+        progress = min(100, int((current_value / achievement['threshold']) * 100))
+        achievement_data = achievement.copy()
+        achievement_data['progress'] = progress
+        
+        if achievement['id'] in session.get('achievements_unlocked', []):
+            unlocked_achievements.append(achievement_data)
+        else:
+            locked_achievements.append(achievement_data)
+    
+    return render_template('achievements.html',
+                         employee_name=session['employee_name'],
+                         unlocked=unlocked_achievements,
+                         locked=locked_achievements,
+                         total_achievements=len(ACHIEVEMENTS),
+                         unlocked_count=len(unlocked_achievements))
+
 
 @app.route('/api/random-event')
 def random_event():
