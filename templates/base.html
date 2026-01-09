@@ -17,6 +17,7 @@
             {% if session.get('initialized') %}
             <div class="nav-menu">
                 <a href="{{ url_for('dashboard') }}" class="nav-link">Dashboard</a>
+                <a href="{{ url_for('inbox') }}" class="nav-link">📧 Inbox</a>
                 <a href="{{ url_for('tickets') }}" class="nav-link">Support Tickets</a>
                 <a href="{{ url_for('servers') }}" class="nav-link">Server Monitor</a>
                 <a href="{{ url_for('tasks') }}" class="nav-link">Tasks</a>

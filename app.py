@@ -94,6 +94,7 @@ ACHIEVEMENTS = [
     {'id': 5, 'name': 'Veteran', 'description': 'Work for 7 days', 'requirement': 'current_day', 'threshold': 7, 'points': 75},
     {'id': 6, 'name': 'Speed Demon', 'description': 'Resolve 25 tickets', 'requirement': 'tickets_resolved', 'threshold': 25, 'points': 100},
     {'id': 7, 'name': 'Elite Status', 'description': 'Reach 1000 points', 'requirement': 'score', 'threshold': 1000, 'points': 200},
+    {'id': 8, 'name': 'Inbox Zero', 'description': 'Respond to 10 emails', 'requirement': 'emails_responded', 'threshold': 10, 'points': 40},
 ]
 
 BONUS_CHALLENGES = [
@@ -102,6 +103,118 @@ BONUS_CHALLENGES = [
     {'id': 3, 'title': 'Critical Response', 'description': 'Resolve 2 critical tickets', 'points': 60, 'type': 'priority'},
     {'id': 4, 'title': 'Efficiency Expert', 'description': 'Use detailed responses for 5 tickets', 'points': 45, 'type': 'quality'},
 ]
+
+# Email system
+EMAIL_SENDERS = [
+    'management@benco.com', 'hr@benco.com', 'tech-team@benco.com', 
+    'customers@benco.com', 'security@benco.com', 'billing@benco.com'
+]
+
+EMAIL_TEMPLATES = [
+    {
+        'id': 1, 'from': 'management@benco.com', 'subject': 'Quarterly Performance Review',
+        'body': 'Hello {name},\n\nYour performance this quarter has been {performance}. Keep up the {sentiment} work!\n\nRegards,\nManagement',
+        'type': 'management', 'requires_response': True
+    },
+    {
+        'id': 2, 'from': 'hr@benco.com', 'subject': 'Team Building Event',
+        'body': 'Hi {name},\n\nWe\'re organizing a team building event next week. Please confirm your attendance.\n\nBest,\nHR Department',
+        'type': 'hr', 'requires_response': True
+    },
+    {
+        'id': 3, 'from': 'tech-team@benco.com', 'subject': 'System Maintenance Notice',
+        'body': 'Team,\n\nScheduled maintenance on {region} server tonight at 11 PM. Expected downtime: 2 hours.\n\nTech Team',
+        'type': 'info', 'requires_response': False
+    },
+    {
+        'id': 4, 'from': 'customers@benco.com', 'subject': 'Customer Feedback Request',
+        'body': 'Hi {name},\n\nA customer left positive feedback about your support! Great job on ticket #{ticket_id}.\n\nCustomer Relations',
+        'type': 'feedback', 'requires_response': False
+    },
+    {
+        'id': 5, 'from': 'security@benco.com', 'subject': 'Security Alert',
+        'body': 'URGENT: Unusual activity detected on {region}. Please review immediately and report findings.\n\nSecurity Team',
+        'type': 'urgent', 'requires_response': True
+    },
+    {
+        'id': 6, 'from': 'management@benco.com', 'subject': 'Promotion Opportunity',
+        'body': 'Dear {name},\n\nBased on your excellent performance ({score} points), we\'d like to discuss a promotion. Please schedule a meeting.\n\nManagement',
+        'type': 'management', 'requires_response': True
+    },
+    {
+        'id': 7, 'from': 'billing@benco.com', 'subject': 'Invoice Discrepancy',
+        'body': 'Hello,\n\nWe noticed a discrepancy in client billing. Please review account #{account} and advise.\n\nBilling Department',
+        'type': 'urgent', 'requires_response': True
+    },
+    {
+        'id': 8, 'from': 'tech-team@benco.com', 'subject': 'New Tools Available',
+        'body': 'Hi Team,\n\nWe\'ve deployed new monitoring tools. Check the documentation for details.\n\nTech Team',
+        'type': 'info', 'requires_response': False
+    },
+    {
+        'id': 9, 'from': 'hr@benco.com', 'subject': 'Training Opportunity',
+        'body': 'Hello {name},\n\nWould you be interested in advanced {skill} training next month?\n\nHR Department',
+        'type': 'hr', 'requires_response': True
+    },
+    {
+        'id': 10, 'from': 'customers@benco.com', 'subject': 'Customer Complaint',
+        'body': 'Attention {name},\n\nA customer reported slow response time. Please review your ticket handling process.\n\nCustomer Relations',
+        'type': 'feedback', 'requires_response': True
+    },
+]
+
+EMAIL_RESPONSES = {
+    'positive': [
+        'Thank you for the update. I will handle this promptly.',
+        'Acknowledged. I appreciate the feedback.',
+        'Will do. Thanks for letting me know.',
+        'Confirmed. I\'ll take care of this right away.'
+    ],
+    'professional': [
+        'Thank you for bringing this to my attention. I will investigate immediately.',
+        'I acknowledge receipt of this message and will respond with findings shortly.',
+        'Understood. I will prioritize this and provide an update soon.',
+        'Received. I will review the details and take appropriate action.'
+    ],
+    'detailed': [
+        'Thank you for this information. I have reviewed the details thoroughly and will implement the necessary actions. I will provide a comprehensive update within the next 24 hours with full resolution details.',
+        'I acknowledge receipt of your message. After careful analysis of the situation, I have identified the key action items and will execute them systematically. You can expect detailed progress reports as I work through this.',
+        'Received and understood. I will conduct a complete investigation, document all findings, and ensure proper resolution. I will keep all stakeholders informed throughout the process with regular status updates.'
+    ]
+}
+
+def generate_dynamic_email(employee_name, score, role, tickets_resolved):
+    """Generate a dynamic email based on current game state"""
+    template = random.choice(EMAIL_TEMPLATES)
+    email = template.copy()
+    
+    # Dynamic replacements
+    performance = 'excellent' if score > 200 else 'good' if score > 100 else 'satisfactory'
+    sentiment = 'great' if score > 200 else 'good'
+    region = random.choice(SERVER_LOCATIONS)
+    ticket_id = random.randint(1, 24)
+    account = random.randint(1000, 9999)
+    skills = ['Python', 'System Administration', 'Customer Service', 'Database Management', 'Security']
+    skill = random.choice(skills)
+    
+    # Replace placeholders
+    body = email['body'].format(
+        name=employee_name,
+        performance=performance,
+        sentiment=sentiment,
+        region=region,
+        ticket_id=ticket_id,
+        score=score,
+        account=account,
+        skill=skill
+    )
+    
+    email['body'] = body
+    email['timestamp'] = datetime.now().isoformat()
+    email['read'] = False
+    
+    return email
+
 
 def initialize_session():
     """Initialize session data for new game"""
@@ -121,6 +234,13 @@ def initialize_session():
         session['detailed_responses'] = 0
         session['critical_tickets_resolved'] = 0
         session['active_bonus'] = random.choice(BONUS_CHALLENGES)
+        session['inbox'] = []
+        session['emails_responded'] = 0
+        # Generate initial emails
+        for _ in range(2):
+            email = generate_dynamic_email(session['employee_name'], session['score'], session['role'], session['tickets_resolved'])
+            session['inbox'].append(email)
+
 
 def check_achievements():
     """Check and unlock achievements"""
@@ -370,6 +490,78 @@ def achievements():
                          unlocked_count=len(unlocked_achievements))
 
 
+@app.route('/inbox')
+def inbox():
+    """Email inbox page"""
+    initialize_session()
+    
+    # Calculate unread count
+    unread_count = sum(1 for email in session.get('inbox', []) if not email.get('read', False))
+    
+    return render_template('inbox.html',
+                         emails=session.get('inbox', []),
+                         employee_name=session['employee_name'],
+                         unread_count=unread_count)
+
+@app.route('/email/<int:email_index>')
+def view_email(email_index):
+    """View a specific email"""
+    initialize_session()
+    
+    inbox = session.get('inbox', [])
+    if 0 <= email_index < len(inbox):
+        email = inbox[email_index]
+        email['read'] = True
+        session.modified = True
+        
+        return render_template('email_view.html',
+                             email=email,
+                             email_index=email_index,
+                             employee_name=session['employee_name'])
+    
+    return redirect(url_for('inbox'))
+
+@app.route('/respond-email/<int:email_index>', methods=['POST'])
+def respond_email(email_index):
+    """Respond to an email"""
+    initialize_session()
+    
+    response_type = request.form.get('response_type', 'professional')
+    
+    inbox = session.get('inbox', [])
+    if 0 <= email_index < len(inbox):
+        email = inbox[email_index]
+        
+        if email.get('requires_response', False) and not email.get('responded', False):
+            # Award points based on response quality
+            points = {'positive': 5, 'professional': 10, 'detailed': 15}.get(response_type, 10)
+            session['score'] += points
+            session['emails_responded'] += 1
+            
+            # Mark as responded
+            email['responded'] = True
+            email['response_type'] = response_type
+            email['response_text'] = random.choice(EMAIL_RESPONSES[response_type])
+            
+            # Check achievements
+            check_achievements()
+            
+            session.modified = True
+    
+    return redirect(url_for('inbox'))
+
+@app.route('/delete-email/<int:email_index>', methods=['POST'])
+def delete_email(email_index):
+    """Delete an email"""
+    initialize_session()
+    
+    inbox = session.get('inbox', [])
+    if 0 <= email_index < len(inbox):
+        inbox.pop(email_index)
+        session.modified = True
+    
+    return redirect(url_for('inbox'))
+
 @app.route('/api/random-event')
 def random_event():
     """API endpoint for random events"""
@@ -385,6 +577,13 @@ def random_event():
         event = random.choice(RANDOM_EVENTS)
         session['score'] += event['impact']
         session['last_event_time'] = datetime.now().isoformat()
+        
+        # 20% chance of receiving a new email
+        if random.random() < 0.2:
+            new_email = generate_dynamic_email(session['employee_name'], session['score'], 
+                                               session['role'], session['tickets_resolved'])
+            session['inbox'].append(new_email)
+        
         session.modified = True
         return jsonify({'event': event})
     
@@ -401,6 +600,12 @@ def next_day():
     
     # Refresh tickets
     session['active_tickets'] = random.sample(SUPPORT_TICKETS, 3)
+    
+    # Add new morning emails
+    for _ in range(random.randint(1, 3)):
+        email = generate_dynamic_email(session['employee_name'], session['score'], 
+                                       session['role'], session['tickets_resolved'])
+        session['inbox'].append(email)
     
     session.modified = True
     return redirect(url_for('dashboard'))
