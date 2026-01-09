@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %}Scoreboard - Benco Company{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>🏆 Performance Scoreboard</h1>
+    <p>Track your progress and achievements</p>
+</div>
+
+<div class="scoreboard-container">
+    <div class="employee-profile">
+        <div class="profile-header">
+            <div class="profile-avatar">{{ employee_name[0]|upper }}</div>
+            <div class="profile-info">
+                <h2>{{ employee_name }}</h2>
+                <p class="profile-role">{{ role }}</p>
+                <p class="profile-rank">Current Rank: <strong>{{ rank }}</strong></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="score-stats">
+        <div class="score-card primary">
+            <h3>Total Score</h3>
+            <p class="score-value">{{ score }}</p>
+            <p class="score-label">Performance Points</p>
+        </div>
+        
+        <div class="score-details">
+            <div class="detail-item">
+                <span class="detail-icon">🎫</span>
+                <div class="detail-content">
+                    <p class="detail-value">{{ tickets_resolved }}</p>
+                    <p class="detail-label">Tickets Resolved</p>
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-icon">✅</span>
+                <div class="detail-content">
+                    <p class="detail-value">{{ tasks_completed }}</p>
+                    <p class="detail-label">Tasks Completed</p>
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-icon">📅</span>
+                <div class="detail-content">
+                    <p class="detail-value">{{ current_day }}</p>
+                    <p class="detail-label">Days Worked</p>
+                </div>
+            </div>
+            
+            <div class="detail-item">
+                <span class="detail-icon">⚡</span>
+                <div class="detail-content">
+                    <p class="detail-value">{{ efficiency }}</p>
+                    <p class="detail-label">Efficiency Rating</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="rank-progression">
+        <h3>Rank Progression</h3>
+        <div class="ranks">
+            <div class="rank-item {% if rank == 'Intern' %}active{% endif %}">
+                <span class="rank-name">Intern</span>
+                <span class="rank-requirement">0-49 pts</span>
+            </div>
+            <div class="rank-item {% if rank == 'Junior' %}active{% endif %}">
+                <span class="rank-name">Junior</span>
+                <span class="rank-requirement">50-149 pts</span>
+            </div>
+            <div class="rank-item {% if rank == 'Senior' %}active{% endif %}">
+                <span class="rank-name">Senior</span>
+                <span class="rank-requirement">150-299 pts</span>
+            </div>
+            <div class="rank-item {% if rank == 'Lead' %}active{% endif %}">
+                <span class="rank-name">Lead</span>
+                <span class="rank-requirement">300-499 pts</span>
+            </div>
+            <div class="rank-item {% if rank == 'Manager' %}active{% endif %}">
+                <span class="rank-name">Manager</span>
+                <span class="rank-requirement">500+ pts</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="scoreboard-actions">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+    </div>
+</div>
+{% endblock %}

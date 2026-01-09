@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+
+{% block title %}Achievements - Benco Company{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>🏅 Achievements</h1>
+    <p>Track your progress and unlock rewards</p>
+</div>
+
+<div class="achievement-stats">
+    <div class="stat-box">
+        <h3>{{ unlocked_count }} / {{ total_achievements }}</h3>
+        <p>Achievements Unlocked</p>
+    </div>
+</div>
+
+{% if unlocked %}
+<div class="achievements-section">
+    <h2>✅ Unlocked Achievements</h2>
+    <div class="achievements-grid">
+        {% for achievement in unlocked %}
+        <div class="achievement-card unlocked">
+            <div class="achievement-icon">🏆</div>
+            <h3>{{ achievement.name }}</h3>
+            <p class="achievement-desc">{{ achievement.description }}</p>
+            <p class="achievement-reward">+{{ achievement.points }} points</p>
+            <div class="achievement-progress completed">
+                <div class="progress-bar-full"></div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+{% if locked %}
+<div class="achievements-section">
+    <h2>🔒 Locked Achievements</h2>
+    <div class="achievements-grid">
+        {% for achievement in locked %}
+        <div class="achievement-card locked">
+            <div class="achievement-icon">🔒</div>
+            <h3>{{ achievement.name }}</h3>
+            <p class="achievement-desc">{{ achievement.description }}</p>
+            <p class="achievement-reward">+{{ achievement.points }} points</p>
+            <div class="achievement-progress">
+                <div class="progress-bar-fill" style="width: {{ achievement.progress }}%">
+                    <span class="progress-text">{{ achievement.progress }}%</span>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+<div class="achievements-actions">
+    <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+</div>
+{% endblock %}

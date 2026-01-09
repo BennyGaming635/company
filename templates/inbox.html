@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Inbox - Benco Company{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>📧 Company Inbox</h1>
+    <p>Manage your company emails and respond professionally</p>
+</div>
+
+<div class="inbox-stats">
+    <div class="stat-box-inline">
+        <span class="stat-icon">📬</span>
+        <span class="stat-text">Total: {{ emails|length }}</span>
+    </div>
+    <div class="stat-box-inline">
+        <span class="stat-icon">🔔</span>
+        <span class="stat-text">Unread: {{ unread_count }}</span>
+    </div>
+</div>
+
+<div class="emails-container">
+    {% if emails %}
+        {% for email in emails %}
+        <div class="email-card {% if not email.read %}unread{% endif %} {% if email.requires_response and not email.get('responded') %}requires-response{% endif %}">
+            <div class="email-header">
+                <div class="email-from">
+                    <span class="email-icon">👤</span>
+                    <strong>{{ email.from }}</strong>
+                </div>
+                <div class="email-meta">
+                    {% if not email.read %}
+                        <span class="badge badge-unread">New</span>
+                    {% endif %}
+                    {% if email.requires_response and not email.get('responded') %}
+                        <span class="badge badge-response">Response Needed</span>
+                    {% endif %}
+                    {% if email.get('responded') %}
+                        <span class="badge badge-responded">✓ Responded</span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="email-subject">
+                <h3>{{ email.subject }}</h3>
+            </div>
+            <div class="email-preview">
+                <p>{{ email.body[:100] }}{% if email.body|length > 100 %}...{% endif %}</p>
+            </div>
+            <div class="email-actions">
+                <a href="{{ url_for('view_email', email_index=loop.index0) }}" class="btn btn-primary">Read Email</a>
+                {% if not email.get('responded') %}
+                <form method="POST" action="{{ url_for('delete_email', email_index=loop.index0) }}" style="display: inline;">
+                    <button type="submit" class="btn btn-secondary">Delete</button>
+                </form>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>📭 Inbox is empty! No emails at the moment.</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

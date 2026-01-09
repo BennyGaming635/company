@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Support Tickets - Benco Company{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>🎫 Support Tickets</h1>
+    <p>Resolve customer issues to earn points</p>
+</div>
+
+<div class="tickets-container">
+    {% if tickets %}
+        {% for ticket in tickets %}
+        <div class="ticket-card priority-{{ ticket.priority|lower }}">
+            <div class="ticket-header">
+                <h3>{{ ticket.title }}</h3>
+                <span class="priority-badge priority-{{ ticket.priority|lower }}">
+                    {{ ticket.priority }}
+                </span>
+            </div>
+            <div class="ticket-body">
+                <p class="ticket-description">{{ ticket.description }}</p>
+                <p class="ticket-id">Ticket #{{ ticket.id }}</p>
+            </div>
+            <div class="ticket-actions">
+                <form method="POST" action="{{ url_for('resolve_ticket', ticket_id=ticket.id) }}">
+                    <div class="response-options">
+                        <label class="response-option">
+                            <input type="radio" name="response" value="quick" checked>
+                            <span>Quick Response (+5 pts)</span>
+                        </label>
+                        <label class="response-option">
+                            <input type="radio" name="response" value="standard">
+                            <span>Standard Response (+10 pts)</span>
+                        </label>
+                        <label class="response-option">
+                            <input type="radio" name="response" value="detailed">
+                            <span>Detailed Response (+15 pts)</span>
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Resolve Ticket</button>
+                </form>
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        <div class="empty-state">
+            <p>🎉 All tickets resolved! Great job!</p>
+            <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Back to Dashboard</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

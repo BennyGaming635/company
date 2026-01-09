@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Benco Company{% endblock %}
+
+{% block content %}
+<div class="dashboard-header">
+    <h1>Staff Dashboard</h1>
+    <div class="employee-info">
+        <p><strong>Employee:</strong> {{ employee_name }}</p>
+        <p><strong>Role:</strong> {{ role }}</p>
+        <p><strong>Day:</strong> {{ current_day }}</p>
+    </div>
+</div>
+
+<div class="stats-grid">
+    <div class="stat-card score">
+        <div class="stat-icon">⭐</div>
+        <div class="stat-content">
+            <h3>Performance Score</h3>
+            <p class="stat-value">{{ score }}</p>
+        </div>
+    </div>
+    
+    <div class="stat-card tickets">
+        <div class="stat-icon">🎫</div>
+        <div class="stat-content">
+            <h3>Tickets Resolved</h3>
+            <p class="stat-value">{{ tickets_resolved }}</p>
+        </div>
+    </div>
+    
+    <div class="stat-card tasks">
+        <div class="stat-icon">✅</div>
+        <div class="stat-content">
+            <h3>Tasks Completed</h3>
+            <p class="stat-value">{{ tasks_completed }}</p>
+        </div>
+    </div>
+    
+    <div class="stat-card rating">
+        <div class="stat-icon">📊</div>
+        <div class="stat-content">
+            <h3>Performance Rating</h3>
+            <p class="stat-value">{{ performance_rating }}%</p>
+        </div>
+    </div>
+</div>
+
+{% if active_bonus %}
+<div class="bonus-challenge">
+    <h2>🎯 Active Bonus Challenge</h2>
+    <div class="challenge-card">
+        <h3>{{ active_bonus.title }}</h3>
+        <p class="challenge-desc">{{ active_bonus.description }}</p>
+        <p class="challenge-reward">Reward: <strong>+{{ active_bonus.points }} points</strong></p>
+    </div>
+</div>
+{% endif %}
+
+<div class="achievements-preview">
+    <h2>🏅 Achievements</h2>
+    <p>You have unlocked <strong>{{ achievements_count }}</strong> achievements!</p>
+    <a href="{{ url_for('achievements') }}" class="btn btn-primary">View All Achievements</a>
+</div>
+
+<div class="dashboard-actions">
+    <h2>Quick Actions</h2>
+    <div class="action-buttons">
+        <a href="{{ url_for('tickets') }}" class="action-btn">
+            <span class="action-icon">🎫</span>
+            <span>Handle Support Tickets</span>
+        </a>
+        <a href="{{ url_for('servers') }}" class="action-btn">
+            <span class="action-icon">🖥️</span>
+            <span>Monitor Servers</span>
+        </a>
+        <a href="{{ url_for('tasks') }}" class="action-btn">
+            <span class="action-icon">📋</span>
+            <span>View Daily Tasks</span>
+        </a>
+        <a href="{{ url_for('scoreboard') }}" class="action-btn">
+            <span class="action-icon">🏆</span>
+            <span>View Scoreboard</span>
+        </a>
+    </div>
+</div>
+
+<div class="day-control">
+    <a href="{{ url_for('next_day') }}" class="btn btn-secondary">Advance to Next Day</a>
+</div>
+{% endblock %}

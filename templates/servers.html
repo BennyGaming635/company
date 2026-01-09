@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+
+{% block title %}Server Monitor - Benco Company{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>🖥️ Server Monitoring Panel</h1>
+    <p>Real-time server statistics across all regions</p>
+</div>
+
+<div class="servers-grid">
+    {% for server in servers %}
+    <div class="server-card status-{{ server.status|lower }}">
+        <div class="server-header">
+            <h3>{{ server.location }}</h3>
+            <span class="status-badge status-{{ server.status|lower }}">
+                {{ server.status }}
+            </span>
+        </div>
+        <div class="server-stats">
+            <div class="stat-row">
+                <span class="stat-label">Uptime:</span>
+                <span class="stat-value">{{ server.uptime }}%</span>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">CPU Usage:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ server.cpu }}%"></div>
+                    <span class="progress-text">{{ server.cpu }}%</span>
+                </div>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Memory:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ server.memory }}%"></div>
+                    <span class="progress-text">{{ server.memory }}%</span>
+                </div>
+            </div>
+            <div class="stat-row">
+                <span class="stat-label">Disk Usage:</span>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: {{ server.disk }}%"></div>
+                    <span class="progress-text">{{ server.disk }}%</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+<div class="refresh-control">
+    <button onclick="location.reload()" class="btn btn-primary">Refresh Stats</button>
+    <a href="{{ url_for('dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+{% endblock %}
