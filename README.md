@@ -38,12 +38,29 @@ cd company
 pip install -r requirements.txt
 ```
 
+3. (Optional) Configure environment variables:
+```bash
+# For development
+export FLASK_DEBUG=true
+export SECRET_KEY=your-secret-key-here
+
+# For production
+export FLASK_DEBUG=false
+export FLASK_HOST=127.0.0.1
+export FLASK_PORT=5000
+export SECRET_KEY=your-production-secret-key
+```
+
 ## Usage
 
 ### Running the Application
 
 1. Start the Flask development server:
 ```bash
+# Development mode (with debug)
+FLASK_DEBUG=true python app.py
+
+# Production mode
 python app.py
 ```
 

@@ -1,9 +1,10 @@
 from flask import Flask, render_template, session, redirect, url_for, request, jsonify
 import random
 from datetime import datetime, timedelta
+import os
 
 app = Flask(__name__)
-app.secret_key = 'benco-secret-key-change-in-production'
+app.secret_key = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
 
 # Game data structures
 ROLES = ['Junior Developer', 'Senior Developer', 'System Administrator', 'Support Specialist']
@@ -107,7 +108,8 @@ def resolve_ticket(ticket_id):
     session['score'] += points
     
     # Add new ticket if needed
-    remaining_tickets = [t for t in SUPPORT_TICKETS if t not in session['active_tickets']]
+    active_ticket_ids = {t['id'] for t in session['active_tickets']}
+    remaining_tickets = [t for t in SUPPORT_TICKETS if t['id'] not in active_ticket_ids]
     if remaining_tickets and len(session['active_tickets']) < 3:
         session['active_tickets'].append(random.choice(remaining_tickets))
     
@@ -168,7 +170,8 @@ def complete_task(task_id):
         session['score'] += task['points']
         
         # Add new task if needed
-        remaining_tasks = [t for t in WORK_TASKS if t not in session['daily_tasks']]
+        active_task_ids = {t['id'] for t in session['daily_tasks']}
+        remaining_tasks = [t for t in WORK_TASKS if t['id'] not in active_task_ids]
         if remaining_tasks and len(session['daily_tasks']) < 2:
             session['daily_tasks'].append(random.choice(remaining_tasks))
     
@@ -231,4 +234,9 @@ def next_day():
     return redirect(url_for('dashboard'))
 
 if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Get configuration from environment variables
+    debug_mode = os.environ.get('FLASK_DEBUG', 'False').lower() == 'true'
+    host = os.environ.get('FLASK_HOST', '0.0.0.0')
+    port = int(os.environ.get('FLASK_PORT', '5000'))
+    
+    app.run(debug=debug_mode, host=host, port=port)
