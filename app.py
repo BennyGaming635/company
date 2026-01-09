@@ -155,7 +155,18 @@ def check_bonus_challenge():
     if completed:
         session['score'] += bonus['points']
         completed_bonus = bonus.copy()
-        session['active_bonus'] = random.choice(BONUS_CHALLENGES)
+        
+        # Reset challenge-specific counters
+        if challenge_type == 'streak':
+            session['ticket_streak'] = 0
+        elif challenge_type == 'priority':
+            session['critical_tickets_resolved'] = 0
+        elif challenge_type == 'quality':
+            session['detailed_responses'] = 0
+        
+        # Assign a different challenge
+        available_challenges = [c for c in BONUS_CHALLENGES if c['id'] != bonus['id']]
+        session['active_bonus'] = random.choice(available_challenges) if available_challenges else random.choice(BONUS_CHALLENGES)
         return completed_bonus
     return None
 
