@@ -104,6 +104,12 @@ BONUS_CHALLENGES = [
     {'id': 4, 'title': 'Efficiency Expert', 'description': 'Use detailed responses for 5 tickets', 'points': 45, 'type': 'quality'},
 ]
 
+# Email system configuration
+INITIAL_EMAILS_COUNT = 2
+NEW_EMAIL_CHANCE = 0.2  # 20% chance
+DAILY_EMAILS_MIN = 1
+DAILY_EMAILS_MAX = 3
+
 # Email system
 EMAIL_SENDERS = [
     'management@benco.com', 'hr@benco.com', 'tech-team@benco.com', 
@@ -237,7 +243,7 @@ def initialize_session():
         session['inbox'] = []
         session['emails_responded'] = 0
         # Generate initial emails
-        for _ in range(2):
+        for _ in range(INITIAL_EMAILS_COUNT):
             email = generate_dynamic_email(session['employee_name'], session['score'], session['role'], session['tickets_resolved'])
             session['inbox'].append(email)
 
@@ -578,8 +584,8 @@ def random_event():
         session['score'] += event['impact']
         session['last_event_time'] = datetime.now().isoformat()
         
-        # 20% chance of receiving a new email
-        if random.random() < 0.2:
+        # Chance of receiving a new email
+        if random.random() < NEW_EMAIL_CHANCE:
             new_email = generate_dynamic_email(session['employee_name'], session['score'], 
                                                session['role'], session['tickets_resolved'])
             session['inbox'].append(new_email)
@@ -602,7 +608,7 @@ def next_day():
     session['active_tickets'] = random.sample(SUPPORT_TICKETS, 3)
     
     # Add new morning emails
-    for _ in range(random.randint(1, 3)):
+    for _ in range(random.randint(DAILY_EMAILS_MIN, DAILY_EMAILS_MAX)):
         email = generate_dynamic_email(session['employee_name'], session['score'], 
                                        session['role'], session['tickets_resolved'])
         session['inbox'].append(email)
